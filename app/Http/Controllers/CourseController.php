@@ -30,8 +30,13 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|min:5|unique:courses,title',
-            'description' => 'required'
+            'title' => [
+                'required',
+                'min:5',
+                'unique:courses,title'
+            ],
+            'description' => 'required',
+            
         ]);
         $course = Course::create($data);
         return response()->json($course, 201);
