@@ -1,4 +1,16 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
 // Variables
 @import "variables";
 
+// Bulma CSS Framework
+@import "node_modules/bulma/bulma";
+
 @import "hero";
+
+.title {
+    color: $primary;
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+}

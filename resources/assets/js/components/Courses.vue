@@ -1,31 +1,31 @@
 <template>
-    <div class="container">
-        <input type="text" v-model="search">
-
-        <course v-for="course in filteredCourses" :course="course" :key="course.id"></course>
+  <div class="columns">
+    <div class="column is-2">
+      <course-search></course-search>
     </div>
+    <div class="column">
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter" v-for="course in filteredCourses">
+          <course :course="course" :key="course.id"></course>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
     import Course from './Course'
+    import CourseSearch from './CourseSearch'
     export default {
-        components: {Course},
+        components: {Course, CourseSearch},
         data() {
             return {
                 search: '',
-                courses: [
-                    {
-                        id: 1,
-                        title: 'First Aid Course',
-                        description: 'Lorem ipsum'
-                    },
-                    {
-                        id: 2,
-                        title: 'Basic First Aid Course',
-                        description: 'this that these and those'
-                    },
-                ]
+                courses: []
             }
+        },
+        mounted () {
+          axios.get('api/courses').then((response) => this.courses = response.data.courses)
         },
         computed: {
             filteredCourses() {
