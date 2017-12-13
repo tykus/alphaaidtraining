@@ -2,8 +2,9 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use PHPUnit\Framework\Assert;
 use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -12,10 +13,9 @@ abstract class TestCase extends BaseTestCase
     function setUp()
     {
         parent::setUp();
-        
+
         TestResponse::macro('assertJsonHasErrors', function ($key) {
-            $this->assertArrayHasKey('errors', $this->getData());
-            dd($this->data);
+            Assert::assertArrayHasKey('errors', json_decode($this->getContent(), true));
         });
     }
 }
